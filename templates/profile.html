@@ -1,0 +1,112 @@
+<!-- templates/profile.html -->
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Input for Part Recommendation</h1>
+<div class="column is-4 is-offset-4" left>
+		<div class="box">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+			{% if messages[0] == 'Please Validate the Inputs' or messages[0]=='Something Went Wrong, Please Try Again'%}
+				<div class="notification is-danger">
+					{{ messages[0]}}
+				</div>
+			{% else %}
+            <div class="notification is-success">
+                {{ messages[0]}}
+				{% if Predicted_parts and Predicted_comm %}
+				,Part : {{ Predicted_parts }}
+				Comm :{{ Predicted_comm }}
+				{% endif %}
+            </div>
+			{% endif %}
+        {% endif %}
+        {% endwith %}
+        <form action="part_reco_engine" method="POST">
+			<div class="field">
+                <div class="control">
+                    <input type="text" list="Specific_Symptom" class="input is-small" name="Specific_Symptom" placeholder="Specific_Symptom" autofocus="">
+					<datalist id="Specific_Symptom">
+					{% for data in Specific_Symptom %}
+						<option>{{ data }}</option>
+					{% endfor %}
+					</datalist>
+                </div>
+            </div>
+			<div class="field">
+                <div class="control">
+                    <input type="text" list="Symptom_Sub_Category" class="input is-small"  name="Symptom_Sub_Category" placeholder="Symptom_Sub_Category">
+					<datalist id="Symptom_Sub_Category">
+					{% for data in Symptom_Sub_Category %}
+						<option>{{ data }}</option>
+					{% endfor %}
+					</datalist>
+                </div>
+				
+            </div>
+			<div class="field">
+                <div class="control">
+                    <input type="text" list="Symptom_Top_Category" class="input is-small"  name="Symptom_Top_Category" placeholder="Symptom_Top_Category">
+					<datalist id="Symptom_Top_Category">
+					{% for data in Symptom_Top_Category %}
+						<option>{{ data }}</option>
+					{% endfor %}
+					</datalist>
+                </div>
+            </div>
+			<div class="field">
+                <div class="control">
+                    <input type="text" list="Business_Segment" class="input is-small"  name="Business_Segment" placeholder="Business_Segment">
+					<datalist id="Business_Segment">
+					{% for data in Business_Segment %}
+						<option>{{ data }}</option>
+					{% endfor %}
+					</datalist>
+                </div>
+            </div>
+			<div class="field">
+                <div class="control">
+                    <input type="text" list="Case_OTC" class="input is-small"  name="Case_OTC" placeholder="Case_OTC">
+					<datalist id="Case_OTC">
+					{% for data in Case_OTC %}
+						<option>{{ data }}</option>
+					{% endfor %}
+					</datalist>
+                </div>
+            </div>
+			<div class="field">
+                <div class="control">
+                    <input type="text" list="PO_Created_Site_Name" class="input is-small"  name="PO_Created_Site_Name" placeholder="PO_Created_Site_Name">
+					<datalist id="PO_Created_Site_Name">
+					{% for data in PO_Created_Site_Name %}
+						<option>{{ data }}</option>
+					{% endfor %}
+					</datalist>
+                </div>
+            </div>
+			<div class="field">
+                <div class="control">
+                    <input type="text" list="Product_Number" class="input is-small"  name="Product_Number" placeholder="Product_Number">
+					<datalist id="Product_Number">
+					{% for data in Product_Number %}
+						<option>{{ data }}</option>
+					{% endfor %}
+					</datalist>
+                </div>
+            </div>
+			<div class="field">
+                <div class="control">
+                    <input type="text" list="Case_Subject" class="input is-small"  name="Case_Subject" placeholder="Case_Subject">
+					<datalist id="Case_Subject">
+					{% for data in Case_Subject %}
+						<option>{{ data }}</option>
+					{% endfor %}
+					</datalist>
+                </div>
+            </div>
+        <button class="button is-block is-info is-medium is-fullwidth">Predict Now</button>
+		</form>
+</div>
+{% endblock %}

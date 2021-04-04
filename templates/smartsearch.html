@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+<h1>Input for Part Recommendation</h1>
+<div left>
+		<div>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+			{% if messages[0] == 'Please Validate the Inputs' or messages[0]=='Something Went Wrong, Please Try Again'%}
+				<div>
+					{{ messages[0]}}
+				</div>
+			{% else %}
+            <div >
+                {{ messages[0]}}
+				,Part : {{ Predicted_parts }}
+				Comm :{{ Predicted_comm }} 
+            </div>
+			{% endif %}
+        {% endif %}
+        {% endwith %}
+        <form action="part_reco_engine" method="POST">
+			<div >
+                <div >
+                    <input type="text" name="Specifi" list="states-list">
+					
+					<datalist id="states-list">
+						{% for data in colours %}
+							<option>{{ data }}</option>
+						{% endfor %}
+					</datalist>
+					
+                </div>
+            </div>
+			
+        <button >Predict Now</button>
+		</form>
+</div>
+</body>
+</html>
